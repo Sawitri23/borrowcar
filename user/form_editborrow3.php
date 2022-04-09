@@ -1,0 +1,73 @@
+
+<?php
+//1. เชื่อมต่อ database:
+include('../condb.php');  //ไฟล์เชื่อมต่อกับ database ที่เราได้สร้างไว้ก่อนหน้าน้ี
+$borrow_id = $_GET["ID"];
+//2. query ข้อมูลจากตาราง:
+$sql = "SELECT * FROM borrow WHERE borrow_id='$borrow_id' ";
+$result = mysqli_query($con, $sql) or die ("Error in query: $sql " . mysqli_error($con));
+$row = mysqli_fetch_array($result);
+extract($row);
+?>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+</style>
+<body>
+  <?php include('css.php');?>
+  <form  name="register" action="form_editborrow4.php" method="POST" class="form-horizontal" enctype="multipart/form-data">
+    <div class="form-group">
+      <div class="col-sm-2" align="right"></div>
+      <div class="col-sm-5" align="left"> <h3><i class="fas fa-edit"></i> คืนรถ </h3> <hr/></div>
+    </div>
+
+    <input type="hidden" name="borrow_id" value="<?php echo $borrow_id ?>">
+
+    <div class="form-group">
+      <div class="col-sm-1" align="right"> </div>
+      <div class="col-sm-4" align="left">
+        <p><b> กำหนดคืน</b></p>
+       <input  name="r_date" type="date" required class="form-control" id="r_date"  value="<?php echo $r_date;?>" />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-1" align="right"> </div>
+      <div class="col-sm-4" align="left">
+        <p><b> วันที่คืน</b></p>
+       <input  name="r1_date" type="date" required class="form-control" id="r1_date" value="<?php echo $r1_date;?>" />
+      </div>
+    </div>
+ 
+<input type="hidden" name="name" value="<?php echo $name ?>">
+
+<input type="hidden" name="dept_name" value="<?php echo $dept_name ?>">
+
+<input type="hidden" name="item_name" value="<?php echo $item_name ?>">
+
+        <input type="hidden" name="email" value="<?php echo $email ?>">
+
+        <input type="hidden" name="b_status" value="<?php echo $b_status ?>">
+
+       <div class="form-group">
+      <div class="col-sm-1" align="right"> </div>
+      <div class="col-sm-4" align="left">
+    <label for="r_status">สถานะการคืน</label>
+    <select  name="r_status" id="r_status" class="form-control">
+      <option value="รออนุมัติการคืน">รออนุมัติการคืน</option>
+      <option value="คืนอุปกรณ์แล้ว">คืนอุปกรณ์แล้ว</option>
+    </select>
+  </div>
+</div>
+
+    <div class="form-group">
+      <div class="col-sm-1" align="right"> </div>
+      <div class="col-sm-4" align="left">
+      <button type="submit" class="btn btn-success" id="btn"> <span class="glyphicon glyphicon-floppy-disk"></span> คืนรถ
+      </button>
+  </div>
+</form>
+</body>
